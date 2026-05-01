@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+BASE_URL="https://raw.githubusercontent.com/YOUR_USERNAME/cmdhub/main/registry"
+
+CMD=$1
+NAME=$2
+MODE=$3
+
+install_cmd() {
+
+    if [ -z "$NAME" ]; then
+        echo "❌ missing command name"
+        exit 1
+    fi
+
+    echo "📦 installing $NAME..."
+
+    if [ "$MODE" = "global" ]; then
+        DEST="/usr/local/bin"
+    else
+        DEST="$HOME/Commands"
+        mkdir -p "$DEST"
+    fi
+
+    URL="$BASE_URL/$NAME/latest/$NAME"
+
+    curl -fsSL "$URL" -o "$DEST/$NAME" || {
+        echo "❌ download failed"
+        exit 1
+    }
+
+    chmod +x "$DEST/$NAME"
+
+    if [ "$MODE" != "global" ]; then
+        if ! grep -q "alias $NAME=" ~/.zshrc; then
+            echo "alias $NAME=$DEST/$NAME" >> ~/.zshrc
+        fi
+    fi
+
+    echo "✔ installed → $DEST/$NAME"
+}
+
+case "$CMD" in
+    install)
+        install_cmd
+        ;;
+    *)
+        echo "Usage:"
+        echo "  cmdhub install proxyctl [global|user]"
+        ;;
+esac
+

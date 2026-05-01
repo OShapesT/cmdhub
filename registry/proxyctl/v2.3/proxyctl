@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+BASE_DIR="$(dirname "$0")"
+
+case "$1" in
+
+scan)
+    bash "$BASE_DIR/lib/scan.sh"
+    ;;
+
+auto)
+    bash "$BASE_DIR/lib/auto.sh"
+    ;;
+
+on)
+    source "$BASE_DIR/lib/auto.sh"
+    ;;
+
+off)
+    unset http_proxy
+    unset https_proxy
+    unset ALL_PROXY
+    echo "✔ proxy disabled"
+    ;;
+
+status)
+    env | grep -i proxy
+    ;;
+
+doctor)
+    bash "$BASE_DIR/lib/deps.sh"
+    ;;
+
+*)
+    echo "Usage:"
+    echo "  proxyctl scan"
+    echo "  proxyctl auto"
+    echo "  proxyctl on"
+    echo "  proxyctl off"
+    echo "  proxyctl status"
+    echo "  proxyctl doctor"
+    ;;
+esac

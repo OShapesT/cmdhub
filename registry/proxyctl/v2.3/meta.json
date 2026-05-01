@@ -1,0 +1,8 @@
+{
+  "name": "proxyctl",
+  "version": "2.3",
+  "desc": "smart proxy routing tool",
+  "os": ["mac", "linux"],
+  "shell": ["bash", "zsh"],
+  "entry": "proxyctl"
+}

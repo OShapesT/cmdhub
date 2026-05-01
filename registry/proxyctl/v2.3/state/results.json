@@ -1,0 +1,7 @@
+[
+  {"index":0,"proto":"socks5","port":15235,"name":"unknown"}
+,
+  {"index":1,"proto":"http","port":7000,"name":"unknown"}
+,
+  {"index":2,"proto":"http","port":5000,"name":"unknown"}
+]

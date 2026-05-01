@@ -1,0 +1,9 @@
+{
+  "commands": [
+    {
+      "name": "proxyctl",
+      "version": "2.3",
+      "desc": "smart proxy tool"
+    }
+  ]
+}
